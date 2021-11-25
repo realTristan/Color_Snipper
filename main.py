@@ -28,8 +28,12 @@ class Ui_MainWindow(QtWidgets.QWidget):
         self.selected_color.setObjectName("selected_color")
         self.color_display = QtWidgets.QLabel(self.centralwidget)
         self.color_display.setGeometry(QtCore.QRect(190, 150, 101, 101))
+        self.color_display.setStyleSheet("border: 2px solid black;")
         self.color_display.setText("")
         self.color_display.setObjectName("color_display")
+        self.exit_button = QtWidgets.QPushButton(self.centralwidget)
+        self.exit_button.setGeometry(QtCore.QRect(190, 120, 101, 23))
+        self.exit_button.setObjectName("exit_button")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -37,8 +41,9 @@ class Ui_MainWindow(QtWidgets.QWidget):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Color Snipper"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.selected_color.setPlainText(_translate("MainWindow", "Please select a new image"))
+        self.exit_button.setText(_translate("MainWindow", "Close Image"))
 
 
     # // Select new image functions
@@ -51,6 +56,7 @@ class Ui_MainWindow(QtWidgets.QWidget):
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Escape:
             self.close()
+            cv2.destroyAllWindows()
         event.accept()
 
     def mousePressEvent(self, event):

@@ -4,8 +4,15 @@ from sty import *
 class Eyedrop(object):
 	def __init__(self, ui):
 		self.ui = ui
+		self.show_image = True
 		self.color_selected = numpy.zeros((150,150,3), numpy.uint8)
+		self.ui.exit_button.clicked.connect(self.close_image)
 	
+	# // Close the image window
+	def close_image(self):
+		self.show_image = False
+		return cv2.destroyAllWindows()
+		
 	# // Get the colors hex code
 	def get_hex(self, r,g,b):
 		return "#{:02x}{:02x}{:02x}".format(r,g,b)
@@ -18,10 +25,9 @@ class Eyedrop(object):
 	# // Display the color values to the screen
 	def set_text(self, R, G, B):
 		hex_color = self.get_hex(R, G, B)
-		text = f"Selected Color:\n\nRGB: ({R},{G},{B})\n\nAndroid Hex: {self.get_android_hex(hex_color)}\n\nStandard Hex: {hex_color}"
+		text = f"Press \"ESC\" to exit:\n\nRGB: ({R},{G},{B})\n\nAndroid Hex: {self.get_android_hex(hex_color)}\n\nStandard Hex: {hex_color}"
 		self.ui.selected_color.setPlainText(text)
-		self.ui.color_display.setStyleSheet(f"background-color:rgb({R},{G},{B})")
-
+		self.ui.color_display.setStyleSheet(f"background-color:rgb({R},{G},{B}); border: 2px solid black;")
 
 	# // Show the newly captured image to the screen
 	def read(self, image):
@@ -29,12 +35,11 @@ class Eyedrop(object):
 		self.image = cv2.imread(image)
 		cv2.setMouseCallback('image', self.show_color)
 
-		while (1):
+		while self.show_image:
 			cv2.imshow('image', self.image)
 			if cv2.waitKey(1) & 0xFF == 27:
-				cv2.destroyAllWindows()
-	
-
+				self.close_image()
+    
 	# // Print out the values for the selected color
 	def show_color(self, event, x, y, flags, param):
 		B=self.image[y,x][0]
