@@ -25,7 +25,7 @@ class Eyedrop(object):
 	# // Display the color values to the screen
 	def set_text(self, R, G, B):
 		hex_color = self.get_hex(R, G, B)
-		text = f"Press \"ESC\" to exit:\n\nRGB: ({R},{G},{B})\n\nAndroid Hex: {self.get_android_hex(hex_color)}\n\nStandard Hex: {hex_color}"
+		text = f"Selected Image:\n\nRGB: ({R},{G},{B})\n\nAndroid Hex: {self.get_android_hex(hex_color)}\n\nStandard Hex: {hex_color}"
 		self.ui.selected_color.setPlainText(text)
 		self.ui.color_display.setStyleSheet(f"background-color:rgb({R},{G},{B}); border: 2px solid black;")
 
