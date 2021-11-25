@@ -3,7 +3,6 @@ from PIL import ImageGrab
 import sys, tkinter
 from tools import *
 
-
 class Ui_MainWindow(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -41,7 +40,7 @@ class Ui_MainWindow(QtWidgets.QWidget):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Color Snipper"))
         self.selected_color.setPlainText(_translate("MainWindow", "Please select a new image"))
         self.exit_button.setText(_translate("MainWindow", "Close Image"))
 
